@@ -20,6 +20,7 @@ Welcome to my LeetCode solutions repository! This repository contains solutions 
 | 232. |              [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/description/)              |    Easy    |       [Python](https://github.com/daolivar01/leetcode/blob/main/python/palindrome_linked_list.py)        |
 | 242. |                       [Valid Anagram](https://leetcode.com/problems/valid-anagram/description/)                       |    Easy    |            [Python](https://github.com/daolivar01/leetcode/blob/main/python/valid_anagram.py)            |
 | 705. |                      [Design HashSet](https://leetcode.com/problems/design-hashset/description/)                      |    Easy    |           [Python](https://github.com/daolivar01/leetcode/blob/main/python/design_hashset.py)            |
+| 706. |                      [Design HashMap](https://leetcode.com/problems/design-hashmap/description/)                      |    Easy    |           [Python](https://github.com/daolivar01/leetcode/blob/main/python/design_hashmap.py)            |
 | 876. |           [Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/description/)           |    Easy    |      [Python](https://github.com/daolivar01/leetcode/blob/main/python/middle_of_the_linked_list.py)      |
 
 <!-- https://github.com/daolivar01/leetcode/blob/main/ -->
