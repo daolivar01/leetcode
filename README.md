@@ -15,6 +15,7 @@ This repository contains solutions to various LeetCode problems aimed at prepari
 |                        [219.](https://leetcode.com/problems/contains-duplicate-ii/description/) |             Contains Duplicate II              | 🟢 Easy    |           [Python](https://github.com/daolivar01/leetcode/blob/main/python/contains_duplicate_ii/solution.py)           |
 |                        [567.](https://leetcode.com/problems/permutation-in-string/description/) |             Permutation in String              | 🟠 Medium  |           [Python](https://github.com/daolivar01/leetcode/blob/main/python/permutation-in-string/solution.py)           |
 |                   [643.](https://leetcode.com/problems/maximum-average-subarray-i/description/) |           Maximum Average Subarray I           | 🟢 Easy    |        [Python](https://github.com/daolivar01/leetcode/blob/main/python/maximum_average_subarray_i/solution.py)         |
+|                          [680.](https://leetcode.com/problems/valid-palindrome-ii/description/) |              Valid Palindrome II               | 🟢 Easy    |            [Python](https://github.com/daolivar01/leetcode/blob/main/python/valid_palindrome_ii/solution.py)            |
 |                           [904.](https://leetcode.com/problems/fruit-into-baskets/description/) |               Fruit Into Baskets               | 🟠 Medium  |            [Python](https://github.com/daolivar01/leetcode/blob/main/python/fruit_into_baskets/solution.py)             |
 
 <!-- Row Template -->
