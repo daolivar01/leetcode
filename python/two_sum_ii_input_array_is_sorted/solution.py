@@ -1,28 +1,32 @@
 class Solution:
     def twoSum(self, numbers, target):
         """
-        Given a sorted list of integers, returns the 1-based indices of the two numbers that add up to the target.
+        Problem Type: Two-pointer on sorted array
 
-        Args:
-            numbers (List[int]): A list of integers sorted in non-decreasing order.
-            target (int): The target sum.
+        Approach:
+        Use two pointers starting at the beginning and end of the sorted list.
+        Calculate the sum of values at the pointers. If it matches target, return indices.
+        If the sum is less than target, move left pointer forward to increase sum.
+        If the sum is more than target, move right pointer backward to decrease sum.
+        This exploits the sorted property to find the pair in O(n) time without extra space.
+
+        Time Complexity: O(n), where n = len(numbers)
+        Space Complexity: O(1), constant space used
 
         Returns:
-            List[int]: Indices (1-based) of the two numbers whose sum equals the target.
+        List[int]: 1-based indices of the two numbers adding up to target
         """
-        left = 0
-        right = len(numbers) - 1
+        l, r = 0, len(numbers) - 1
 
-        while left < right:
-            curr_sum = numbers[left] + numbers[right]
+        while l < r:
+            curr_sum = numbers[l] + numbers[r]
 
             if curr_sum == target:
-                return [left + 1, right + 1]  # Return 1-based indices
+                return [l + 1, r + 1]  # 1-based indices
 
-            # Move the left or right pointer based on comparison
             elif curr_sum < target:
-                left += 1
+                l += 1
             else:
-                right -= 1
+                r -= 1
 
         return []

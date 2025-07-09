@@ -1,32 +1,30 @@
 class Solution:
     def isPalindrome(self, s):
         """
-        Determines if the given string is a valid palindrome, considering only alphanumeric characters
-        and ignoring cases.
+        Problem Type: Two-pointer, filtered character comparison
 
-        Args:
-            s (str): Input string to check.
+        Approach:
+        Use two pointers to traverse the string from both ends.
+        Skip non-alphanumeric characters and compare the remaining ones in a case-insensitive way.
+        If all such character pairs match, the string is a valid palindrome.
 
-        Returns:
-            bool: True if the string is a palindrome, False otherwise.
+        This avoids extra space by skipping characters in-place during traversal.
+
+        Time Complexity: O(n), where n = len(s)
+        Space Complexity: O(1), constant space usage (ignores input size)
         """
-        left = 0
-        right = len(s) - 1
+        l, r = 0, len(s) - 1
 
-        while left < right:
-            # Move left forward if not alphanumeric
-            while left < right and not s[left].isalnum():
-                left += 1
+        while l < r:
+            while l < r and not s[l].isalnum():
+                l += 1
+            while l < r and not s[r].isalnum():
+                r -= 1
 
-            # Move right backward if not alphanumeric
-            while left < right and not s[right].isalnum():
-                right -= 1
-
-            # Compare characters case-insensitively
-            if s[left].lower() != s[right].lower():
+            if s[l].lower() != s[r].lower():
                 return False
 
-            left += 1
-            right -= 1
+            l += 1
+            r -= 1
 
         return True

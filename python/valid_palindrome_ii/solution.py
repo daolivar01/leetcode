@@ -1,19 +1,21 @@
 class Solution:
     def validPalindrome(self, s):
         """
-        Returns True if the input string can be a palindrome after deleting at most one character.
+        Problem Type: Two-pointer with backtracking (at most one mismatch allowed)
 
-        Uses the two-pointer technique to check for palindrome validity from both ends,
-        allowing at most one mismatch (which can be resolved by skipping one character).
+        Approach:
+        Use two pointers to compare characters from both ends. On mismatch,
+        attempt to skip either the left or right character and check if the rest is a valid palindrome.
+        At most one character may be deleted to satisfy the palindrome condition.
 
-        Args:
-            s (str): The input string.
+        Time Complexity: O(n), where n = len(s)
+        Space Complexity: O(1), constant extra space used
 
-        Returns:
-            bool: True if a valid near-palindrome exists, False otherwise.
+        Edge case: Allows for exactly one "repair" via character deletion
         """
+
         def is_palindrome(l, r):
-            # Helper function to check if substring s[l:r+1] is a strict palindrome
+            # Standard two-pointer palindrome check for substring s[l:r+1]
             while l < r:
                 if s[l] != s[r]:
                     return False
@@ -21,16 +23,14 @@ class Solution:
                 r -= 1
             return True
 
-        left = 0
-        right = len(s) - 1
+        l, r = 0, len(s) - 1
 
-        # Two-pointer approach: scan from both ends toward the center
-        while left < right:
-            if s[left] == s[right]:
-                left += 1
-                right -= 1
+        while l < r:
+            if s[l] == s[r]:
+                l += 1
+                r -= 1
             else:
-                # At most one mismatch allowed: skip left or right and validate the rest
-                return is_palindrome(left + 1, right) or is_palindrome(left, right - 1)
+                # Try skipping either mismatched character (at most one allowed)
+                return is_palindrome(l + 1, r) or is_palindrome(l, r - 1)
 
         return True

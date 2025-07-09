@@ -1,32 +1,30 @@
 class Solution:
     def lengthOfLongestSubstring(self, s):
         """
-        Finds the length of the longest substring without repeating characters.
+        Problem Type: Sliding window with dynamic size and duplicate detection
 
-        Uses a dynamic-sized sliding window with a set to maintain the current
-        window of unique characters. The window expands by moving the right
-        pointer and shrinks from the left when duplicates are encountered.
+        Approach:
+        Use a sliding window defined by two pointers (l, r) and a set to track
+        unique characters in the current window. Expand the window by moving 'r'.
+        When a duplicate is found, shrink the window from 'l' until the duplicate
+        is removed. Track the maximum window size observed.
 
-        Args:
-            s: The input string.
+        Time Complexity: O(n), each character visited at most twice
+        Space Complexity: O(min(n, m)), where m is the character set size (window size)
 
         Returns:
-            The length of the longest substring with all unique characters.
+        int: Length of the longest substring without repeating characters
         """
-        seen = set()   # Stores characters currently in the window
-        left = 0       # Left boundary of the sliding window
-        max_len = 0    # Tracks the maximum length found
+        seen = set()
+        l = 0
+        max_len = 0
 
-        for right in range(len(s)):
-            # If the current character is a duplicate, shrink the window from the left
-            while s[right] in seen:
-                seen.remove(s[left])
-                left += 1
+        for r in range(len(s)):
+            while s[r] in seen:
+                seen.remove(s[l])
+                l += 1
 
-            # Add the current character to the window
-            seen.add(s[right])
-
-            # Update the max length of substring found so far
-            max_len = max(max_len, right - left + 1)
+            seen.add(s[r])
+            max_len = max(max_len, r - l + 1)
 
         return max_len

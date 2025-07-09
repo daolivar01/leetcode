@@ -1,31 +1,28 @@
 class Solution:
     def containsNearbyDuplicate(self, nums, k):
         """
-        Checks whether any duplicate exists in 'nums' such that the indices
-        of the duplicates are at most 'k' apart.
+        Problem Type: Sliding window + set for duplicate detection
 
-        Uses a sliding window of size 'k' implemented via a set to track
-        the most recent 'k' elements seen.
+        Approach:
+        Maintain a sliding window of size at most k using a set to track recent elements.
+        If a duplicate appears within this window, return True immediately.
+        Slide the window forward by removing the oldest element when the window exceeds size k.
 
-        Args:
-            nums: List of integers to check.
-            k: Maximum allowed index difference between duplicates.
+        Time Complexity: O(n), where n = len(nums)
+        Space Complexity: O(min(n, k)), size of the sliding window
 
         Returns:
-            True if a duplicate exists within a distance of k, False otherwise.
+        bool: True if any duplicate exists within k indices, else False
         """
         window = set()
 
-        for i in range(len(nums)):
-            if nums[i] in window:
-                # Found a duplicate within the current window
-                return True
+        for i, num in enumerate(nums):
+            if num in window:
+                return True  # Duplicate found in current window
 
-            window.add(nums[i])
+            window.add(num)
 
-            # Ensure the window only holds at most 'k' recent elements
             if i >= k:
-                window.remove(nums[i - k])
+                window.remove(nums[i - k])  # Slide window forward
 
-        # No nearby duplicates found
-        return False
+        return False  # No duplicates found within distance k

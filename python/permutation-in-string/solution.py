@@ -1,41 +1,40 @@
 class Solution:
     def checkInclusion(self, s1, s2):
         """
-        Returns True if s2 contains a permutation of s1.
+        Problem Type: Sliding window + frequency count (hash maps)
 
-        A permutation of s1 must have the same character frequencies.
-        So we slide a window of length len(s1) over s2 and check if any
-        substring matches s1's character frequency map.
+        Approach:
+        Build a frequency map of s1, then slide a window of the same length over s2.
+        Track the frequency of characters in the current window using a hash map.
+        At each step, compare the two maps. A match indicates a valid permutation.
 
-        Args:
-            s1 (str): The pattern string to check permutations of.
-            s2 (str): The target string to search in.
+        Time Complexity: O(n), where n = len(s2)
+        Space Complexity: O(1), since character set is limited (only lowercase letters)
 
         Returns:
-            bool: True if any permutation of s1 exists as a substring in s2.
+        bool: True if any permutation of s1 exists as a substring in s2
         """
-        s1_count = {}
-        window_count = {}
+        from collections import defaultdict
 
-        # Build frequency map for s1
-        for char in s1:
-            s1_count[char] = s1_count.get(char, 0) + 1
+        s1_count = defaultdict(int)
+        window_count = defaultdict(int)
 
-        left = 0  # Left boundary of the sliding window
+        for c in s1:
+            s1_count[c] += 1
 
-        # Iterate through s2 using right boundary
-        for right in range(len(s2)):
-            # Add current character to the window count
-            window_count[s2[right]] = window_count.get(s2[right], 0) + 1
+        l = 0  # Left boundary of sliding window
 
-            # Shrink the window if its size exceeds len(s1)
-            if right - left + 1 > len(s1):
-                window_count[s2[left]] -= 1
-                if window_count[s2[left]] == 0:
-                    del window_count[s2[left]]
-                left += 1
+        for r in range(len(s2)):
+            window_count[s2[r]] += 1
 
-            # Compare frequency maps when window size is valid
+            # Shrink window if it exceeds the length of s1
+            if r - l + 1 > len(s1):
+                window_count[s2[l]] -= 1
+                if window_count[s2[l]] == 0:
+                    del window_count[s2[l]]
+                l += 1
+
+            # Check for permutation match
             if window_count == s1_count:
                 return True
 

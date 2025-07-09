@@ -1,35 +1,33 @@
 class Solution:
     def maxArea(self, height):
         """
-        Calculates the maximum area of water a container can hold given the heights of vertical lines.
+        Problem Type: Two-pointer, container with most water
 
-        Uses the two-pointer technique to scan from both ends inward, always moving the pointer
-        pointing to the shorter line, since the area is limited by the shorter boundary.
+        Approach:
+        Use two pointers starting at both ends of the array.
+        Calculate area between pointers and update maximum.
+        Move the pointer at the shorter line inward, since the area
+        is limited by the shorter boundary and moving the taller pointer won't help.
 
-        Args:
-            height (List[int]): List of non-negative integers representing vertical line heights.
+        Time Complexity: O(n), where n = len(height)
+        Space Complexity: O(1), constant extra space
 
         Returns:
-            int: The maximum area of water that can be contained.
+        int: Maximum area of water container formed by vertical lines
         """
-        left = 0
-        right = len(height) - 1
+        l, r = 0, len(height) - 1
         max_area = 0
 
-        # Two-pointer approach: check all possible widest containers, narrowing inward
-        while left < right:
-            # Calculate the current container's area
-            width = right - left
-            curr_height = min(height[left], height[right])
+        while l < r:
+            width = r - l
+            curr_height = min(height[l], height[r])
             curr_area = width * curr_height
-
-            # Update max_area if this one is bigger
             max_area = max(max_area, curr_area)
 
-            # Move the pointer at the shorter line inward
-            if height[left] < height[right]:
-                left += 1
+            # Move pointer at the shorter line inward to try to find taller boundary
+            if height[l] < height[r]:
+                l += 1
             else:
-                right -= 1
+                r -= 1
 
         return max_area

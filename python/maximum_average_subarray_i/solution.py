@@ -1,24 +1,24 @@
 class Solution:
     def findMaxAverage(self, nums, k):
         """
-        Finds the maximum average of any contiguous subarray of length 'k' in 'nums'.
+        Problem Type: Fixed-size sliding window
 
-        Uses a sliding window to efficiently track the sum of the current subarray.
-        Updates the maximum average as the window moves forward.
+        Approach:
+        Compute the sum of the first window of size k. Then slide the window
+        across the array by subtracting the leftmost element and adding the
+        new rightmost element. Track the maximum average seen during this process.
 
-        Args:
-            nums: List of integers.
-            k: Size of the subarray to consider.
+        Time Complexity: O(n), where n = len(nums)
+        Space Complexity: O(1), uses constant extra space
 
         Returns:
-            The maximum average (float) of any subarray of length k.
+        float: Maximum average of any contiguous subarray of length k
         """
-        total = sum(nums[:k])  # Sum of the first window
-        max_avg = total / float(k)
+        total = sum(nums[:k])
+        max_avg = total / k
 
         for i in range(k, len(nums)):
-            # Slide the window by removing the leftmost element and adding the new one
-            total += nums[i] - nums[i - k]
-            max_avg = max(max_avg, total / float(k))
+            total += nums[i] - nums[i - k]  # Update window sum
+            max_avg = max(max_avg, total / k)
 
         return max_avg

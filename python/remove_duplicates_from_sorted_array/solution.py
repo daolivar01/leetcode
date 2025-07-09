@@ -1,22 +1,27 @@
 class Solution:
     def removeDuplicates(self, nums):
         """
-        Removes duplicates from a sorted array in-place and returns the new length.
+        Problem Type: Two-pointer, in-place overwrite
 
-        Args:
-            nums (List[int]): A sorted list of integers with possible duplicates.
+        Approach:
+        Use one pointer (read) to scan the sorted list and another (write) to track
+        the last unique element's position. When a new unique value is found,
+        overwrite the next write position. This removes duplicates in-place without extra space.
+
+        Time Complexity: O(n), where n = len(nums)
+        Space Complexity: O(1), in-place modification
 
         Returns:
-            int: The length of the array with duplicates removed in-place.
+        int: The length of the array after duplicates are removed
         """
         if not nums:
             return 0
 
-        slow = 0  # Points to the last unique element
+        write = 0  # Points to last unique element
 
-        for fast in range(1, len(nums)):
-            if nums[fast] != nums[slow]:
-                slow += 1  # Move slow pointer to next position
-                nums[slow] = nums[fast]  # Overwrite duplicate with new unique value
+        for read in range(1, len(nums)):
+            if nums[read] != nums[write]:
+                write += 1
+                nums[write] = nums[read]  # Overwrite duplicate with unique value
 
-        return slow + 1  # Length is last index + 1
+        return write + 1  # Length is index + 1

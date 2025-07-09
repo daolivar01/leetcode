@@ -1,24 +1,24 @@
 class Solution:
     def containsDuplicate(self, nums):
         """
-        Checks if the list 'nums' contains any duplicate elements.
+        Problem Type: Hash set membership for duplicate detection
 
-        Uses a set to keep track of seen numbers, returning True as soon as
-        a duplicate is detected to minimize time.
+        Approach:
+        Iterate through the list, using a set to track seen elements.
+        Return True immediately upon detecting a duplicate.
+        This approach achieves O(n) time complexity with O(n) extra space.
 
-        Args:
-            nums: List of integers to check for duplicates.
+        Time Complexity: O(n), where n = len(nums)
+        Space Complexity: O(n), for the hash set storage
 
         Returns:
-            True if any duplicate exists, False otherwise.
+        bool: True if any duplicate exists, False otherwise
         """
-        seen = set()  # To store numbers we've seen so far
+        seen = set()
 
         for num in nums:
             if num in seen:
-                # Duplicate found
-                return True
+                return True  # Early exit on duplicate detection
             seen.add(num)
 
-        # No duplicates found after checking all elements
-        return False
+        return False  # No duplicates found
