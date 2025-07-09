@@ -1,19 +1,42 @@
 class Solution:
     def validPalindrome(self, s):
         """
-        Returns True if the input string can be a palindrome after deleting at most one character.
+        Problem Type: Two Pointers with Conditional Backtracking
 
-        Uses the two-pointer technique to check for palindrome validity from both ends,
-        allowing at most one mismatch (which can be resolved by skipping one character).
+        Approach:
+            Use two pointers (left and right) to compare characters from both ends of the string.
+            If characters match, continue inward. If a mismatch occurs, we can attempt to "repair" 
+            the string by deleting either the left or right character, then checking if the remaining 
+            substring is a palindrome.
+
+            This leverages the fact that we are allowed at most one character deletion.
+
+        Time Complexity: O(n)
+            - In the worst case, we perform up to two O(n) checks: one for the original pass and
+              one recursive-style check for each possible skip after a mismatch.
+
+        Space Complexity: O(1)
+            - Only uses constant extra space for pointers; no recursion stack due to iterative design.
 
         Args:
-            s (str): The input string.
+            s (str): The input string to validate.
 
         Returns:
-            bool: True if a valid near-palindrome exists, False otherwise.
+            bool: True if the string can become a palindrome by deleting at most one character;
+                  False otherwise.
         """
+
         def is_palindrome(l, r):
-            # Helper function to check if substring s[l:r+1] is a strict palindrome
+            """
+            Helper function to check if s[l:r+1] is a palindrome using two pointers.
+
+            Args:
+                l (int): Left index
+                r (int): Right index
+
+            Returns:
+                bool: True if the substring is a palindrome
+            """
             while l < r:
                 if s[l] != s[r]:
                     return False
@@ -21,16 +44,14 @@ class Solution:
                 r -= 1
             return True
 
-        left = 0
-        right = len(s) - 1
+        l, r = 0, len(s) - 1
 
-        # Two-pointer approach: scan from both ends toward the center
-        while left < right:
-            if s[left] == s[right]:
-                left += 1
-                right -= 1
+        while l < r:
+            if s[l] == s[r]:
+                l += 1
+                r -= 1
             else:
-                # At most one mismatch allowed: skip left or right and validate the rest
-                return is_palindrome(left + 1, right) or is_palindrome(left, right - 1)
+                # On mismatch, try deleting either character to attempt a valid palindrome
+                return is_palindrome(l + 1, r) or is_palindrome(l, r - 1)
 
         return True

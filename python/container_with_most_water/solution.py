@@ -1,35 +1,43 @@
 class Solution:
     def maxArea(self, height):
         """
-        Calculates the maximum area of water a container can hold given the heights of vertical lines.
+        Problem Type: Two Pointers — Container With Most Water
 
-        Uses the two-pointer technique to scan from both ends inward, always moving the pointer
-        pointing to the shorter line, since the area is limited by the shorter boundary.
+        Approach:
+            Use two pointers initialized at both ends of the `height` array.
+            At each step, calculate the area formed by the lines at the pointers:
+              - Area = width * min(height[l], height[r])
+            Update the maximum area found.
+
+            Since the area is limited by the shorter line, move the pointer
+            at the shorter boundary inward in hopes of finding a taller line
+            that can increase the area.
+
+        Time Complexity: O(n)
+            - Each pointer moves inward at most n times.
+
+        Space Complexity: O(1)
+            - Uses a fixed number of variables regardless of input size.
 
         Args:
-            height (List[int]): List of non-negative integers representing vertical line heights.
+            height (List[int]): Heights of vertical lines.
 
         Returns:
-            int: The maximum area of water that can be contained.
+            int: Maximum area of water container formed by any two lines.
         """
-        left = 0
-        right = len(height) - 1
+        l, r = 0, len(height) - 1
         max_area = 0
 
-        # Two-pointer approach: check all possible widest containers, narrowing inward
-        while left < right:
-            # Calculate the current container's area
-            width = right - left
-            curr_height = min(height[left], height[right])
+        while l < r:
+            width = r - l
+            curr_height = min(height[l], height[r])
             curr_area = width * curr_height
-
-            # Update max_area if this one is bigger
             max_area = max(max_area, curr_area)
 
-            # Move the pointer at the shorter line inward
-            if height[left] < height[right]:
-                left += 1
+            # Move pointer at the shorter line inward to try for a taller boundary
+            if height[l] < height[r]:
+                l += 1
             else:
-                right -= 1
+                r -= 1
 
         return max_area

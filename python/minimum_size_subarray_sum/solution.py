@@ -1,28 +1,42 @@
 class Solution:
     def minSubArrayLen(self, target, nums):
         """
-        Finds the minimal length of a contiguous subarray 
-        for which the sum is greater than or equal to the target.
+        Problem Type: Sliding Window (Variable Size)
+
+        Approach:
+            Use a dynamic sliding window with two pointers:
+              - Expand the window to the right by adding elements until the
+                running sum is at least `target`.
+              - Then shrink the window from the left to find the smallest valid window
+                that satisfies the sum constraint.
+            Keep track of the minimum window length found during this process.
+
+        Time Complexity: O(n)
+            - Each element is visited at most twice: once when added, once when removed.
+
+        Space Complexity: O(1)
+            - Uses only a few integer variables for pointers and sums.
 
         Args:
-            target: int - The target sum we want to reach or exceed.
-            nums: List[int] - A list of positive integers.
+            target (int): The target sum the subarray should meet or exceed.
+            nums (List[int]): List of positive integers.
 
         Returns:
-            int - The length of the smallest such subarray, or 0 if none exists.
+            int: The length of the smallest subarray with sum ≥ target,
+                 or 0 if no such subarray exists.
         """
-        left = 0  # Left boundary of the sliding window
-        r_sum = 0  # Running sum within the current window
-        min_size = float('inf')  # Start with "infinite" window size
+        l = 0  # Left boundary of the sliding window
+        r_sum = 0  # Running sum of current window
+        min_len = float('inf')  # Track minimum valid window length
 
-        for right in range(len(nums)):
-            r_sum += nums[right]  # Expand the window to the right
+        for r in range(len(nums)):
+            r_sum += nums[r]  # Expand window to the right
 
-            # Shrink the window as long as the sum is valid
+            # While current window sum meets or exceeds target,
+            # try shrinking from the left to find smaller valid window
             while r_sum >= target:
-                min_size = min(min_size, right - left + 1)
-                r_sum -= nums[left]
-                left += 1
+                min_len = min(min_len, r - l + 1)
+                r_sum -= nums[l]
+                l += 1
 
-        # If no valid window was found, return 0
-        return 0 if min_size == float('inf') else min_size
+        return 0 if min_len == float('inf') else min_len

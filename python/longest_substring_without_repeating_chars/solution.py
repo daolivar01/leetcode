@@ -1,32 +1,42 @@
 class Solution:
     def lengthOfLongestSubstring(self, s):
         """
-        Finds the length of the longest substring without repeating characters.
+        Problem Type: Sliding Window with Dynamic Size and Duplicate Detection
 
-        Uses a dynamic-sized sliding window with a set to maintain the current
-        window of unique characters. The window expands by moving the right
-        pointer and shrinks from the left when duplicates are encountered.
+        Approach:
+            Use two pointers (`l` and `r`) to define a sliding window over the string.
+            Maintain a set (`seen`) of unique characters currently in the window.
+            Expand the window by moving `r` forward, adding characters to the set.
+            If a duplicate character is encountered (already in `seen`),
+            shrink the window from the left by moving `l` forward and removing characters
+            until the duplicate is removed.
+
+            Throughout, track the maximum window size (longest substring without duplicates).
+
+        Time Complexity: O(n)
+            - Each character is visited at most twice: once when added, once when removed.
+
+        Space Complexity: O(min(n, m))
+            - Where n is the length of the string and m is the size of the character set.
+            - The set stores unique characters in the current window.
 
         Args:
-            s: The input string.
+            s (str): Input string.
 
         Returns:
-            The length of the longest substring with all unique characters.
+            int: Length of the longest substring without repeating characters.
         """
-        seen = set()   # Stores characters currently in the window
-        left = 0       # Left boundary of the sliding window
-        max_len = 0    # Tracks the maximum length found
+        seen = set()  # Set to track unique characters in current window
+        l = 0  # Left pointer of sliding window
+        max_len = 0  # Track max length of substring found
 
-        for right in range(len(s)):
-            # If the current character is a duplicate, shrink the window from the left
-            while s[right] in seen:
-                seen.remove(s[left])
-                left += 1
+        for r in range(len(s)):
+            # Shrink window from left if current character is a duplicate
+            while s[r] in seen:
+                seen.remove(s[l])
+                l += 1
 
-            # Add the current character to the window
-            seen.add(s[right])
-
-            # Update the max length of substring found so far
-            max_len = max(max_len, right - left + 1)
+            seen.add(s[r])  # Add current character to the set
+            max_len = max(max_len, r - l + 1)  # Update max length if larger window found
 
         return max_len

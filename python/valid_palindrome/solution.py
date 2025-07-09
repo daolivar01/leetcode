@@ -1,32 +1,45 @@
 class Solution:
     def isPalindrome(self, s):
         """
-        Determines if the given string is a valid palindrome, considering only alphanumeric characters
-        and ignoring cases.
+        Problem Type: Two Pointers + Character Filtering
+
+        Approach:
+            Use two pointers (`l` and `r`) to traverse the string from both ends. 
+            Skip over any non-alphanumeric characters on either side, and compare the
+            remaining characters in a case-insensitive manner.
+
+            This approach avoids building a filtered copy of the string, keeping the solution in-place
+            and space-efficient. It correctly handles strings with punctuation, whitespace, and mixed casing.
+
+        Time Complexity: O(n)
+            - Each character is visited at most once, due to the single pass of both pointers.
+
+        Space Complexity: O(1)
+            - Only uses constant extra space for pointers and character comparison; no extra data structures.
 
         Args:
-            s (str): Input string to check.
+            s (str): The input string to be checked for palindrome validity.
 
         Returns:
-            bool: True if the string is a palindrome, False otherwise.
+            bool: True if the string is a valid palindrome (ignoring non-alphanumeric and case),
+                  False otherwise.
         """
-        left = 0
-        right = len(s) - 1
+        l, r = 0, len(s) - 1
 
-        while left < right:
-            # Move left forward if not alphanumeric
-            while left < right and not s[left].isalnum():
-                left += 1
+        while l < r:
+            # Skip non-alphanumeric characters from the left
+            while l < r and not s[l].isalnum():
+                l += 1
 
-            # Move right backward if not alphanumeric
-            while left < right and not s[right].isalnum():
-                right -= 1
+            # Skip non-alphanumeric characters from the right
+            while l < r and not s[r].isalnum():
+                r -= 1
 
-            # Compare characters case-insensitively
-            if s[left].lower() != s[right].lower():
+            # Case-insensitive character comparison
+            if s[l].lower() != s[r].lower():
                 return False
 
-            left += 1
-            right -= 1
+            l += 1
+            r -= 1
 
         return True

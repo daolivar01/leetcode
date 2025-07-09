@@ -1,41 +1,55 @@
 class Solution:
     def checkInclusion(self, s1, s2):
         """
-        Returns True if s2 contains a permutation of s1.
+        Problem Type: Sliding Window + Frequency Count (Hash Maps)
 
-        A permutation of s1 must have the same character frequencies.
-        So we slide a window of length len(s1) over s2 and check if any
-        substring matches s1's character frequency map.
+        Approach:
+            Use a fixed-size sliding window over `s2` equal to the length of `s1`.
+            Maintain frequency counts of characters within the window (`window_count`) 
+            and the target string `s1` (`s1_count`).
+
+            For each character added to the window, update the frequency.
+            When the window size exceeds `len(s1)`, remove the leftmost character's count.
+
+            At each step, compare the frequency maps. If they match, a permutation
+            of `s1` exists as a substring of `s2`.
+
+        Time Complexity: O(n), where n = len(s2)
+            - Each character is visited once when added and once when removed from the window.
+
+        Space Complexity: O(1)
+            - The character set is limited (lowercase English letters),
+              so frequency maps have bounded size.
 
         Args:
-            s1 (str): The pattern string to check permutations of.
-            s2 (str): The target string to search in.
+            s1 (str): The string whose permutations we want to find.
+            s2 (str): The string to search within.
 
         Returns:
-            bool: True if any permutation of s1 exists as a substring in s2.
+            bool: True if any permutation of `s1` is a substring of `s2`, False otherwise.
         """
-        s1_count = {}
-        window_count = {}
+        from collections import defaultdict
+
+        s1_count = defaultdict(int)
+        window_count = defaultdict(int)
 
         # Build frequency map for s1
-        for char in s1:
-            s1_count[char] = s1_count.get(char, 0) + 1
+        for c in s1:
+            s1_count[c] += 1
 
-        left = 0  # Left boundary of the sliding window
+        l = 0  # Left index of the sliding window
 
-        # Iterate through s2 using right boundary
-        for right in range(len(s2)):
-            # Add current character to the window count
-            window_count[s2[right]] = window_count.get(s2[right], 0) + 1
+        for r in range(len(s2)):
+            window_count[s2[r]] += 1  # Add current character to the window
 
-            # Shrink the window if its size exceeds len(s1)
-            if right - left + 1 > len(s1):
-                window_count[s2[left]] -= 1
-                if window_count[s2[left]] == 0:
-                    del window_count[s2[left]]
-                left += 1
+            # If window size exceeds s1 length, shrink from the left
+            if r - l + 1 > len(s1):
+                window_count[s2[l]] -= 1
+                if window_count[s2[l]] == 0:
+                    del window_count[s2[l]]  # Clean up zero-count entries
+                l += 1
 
-            # Compare frequency maps when window size is valid
+            # Check if current window matches s1's frequency map
             if window_count == s1_count:
                 return True
 

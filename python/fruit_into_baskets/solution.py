@@ -1,39 +1,43 @@
 class Solution:
     def totalFruit(self, fruits):
         """
-        Finds the length of the longest contiguous subarray (window) that contains at most
-        two types of fruits. Each fruit type is represented by an integer.
+        Problem Type: Sliding Window with Frequency Map — At Most K Distinct Elements (k=2)
 
-        Uses a sliding window with a hash map to track the count of each fruit type 
-        in the current window. The window expands right and shrinks from the left 
-        when the fruit type count exceeds 2.
+        Approach:
+            Use a sliding window with two pointers (`l` and `r`) expanding to the right.
+            Maintain a hash map (`basket`) counting the occurrences of each fruit type within the window.
+
+            If the window contains more than two distinct fruit types, shrink it from the left
+            until it contains at most two types again.
+
+            Track and update the maximum window size observed during the traversal.
+
+        Time Complexity: O(n)
+            - Each element is added and removed from the window at most once.
+
+        Space Complexity: O(k)
+            - `basket` stores counts for up to k=2 fruit types.
 
         Args:
-            fruits: A list of integers representing types of fruits.
+            fruits (List[int]): List representing fruit types on each tree.
 
         Returns:
-            The maximum number of fruits that can be picked (max window size with ≤ 2 types).
+            int: Length of the longest subarray with at most two distinct fruit types.
         """
-        basket = {}    # Maps fruit type to its count in the current window
-        left = 0       # Left boundary of the window
-        max_len = 0    # Tracks the maximum number of fruits collected
+        basket = {}  # Maps fruit type to its count within the current window
+        l = 0  # Left pointer of sliding window
+        max_len = 0  # Track max window size
 
-        for right in range(len(fruits)):
-            fruit = fruits[right]
+        for r, fruit in enumerate(fruits):
+            basket[fruit] = basket.get(fruit, 0) + 1  # Add current fruit to basket
 
-            # Add current fruit to the basket
-            if fruit not in basket:
-                basket[fruit] = 0
-            basket[fruit] += 1
-
-            # Shrink window if we have more than 2 types of fruits
+            # If more than 2 distinct fruits, shrink window from left
             while len(basket) > 2:
-                basket[fruits[left]] -= 1
-                if basket[fruits[left]] == 0:
-                    del basket[fruits[left]]
-                left += 1
+                basket[fruits[l]] -= 1
+                if basket[fruits[l]] == 0:
+                    del basket[fruits[l]]  # Remove fruit type completely when count hits zero
+                l += 1
 
-            # Update max window size
-            max_len = max(max_len, right - left + 1)
+            max_len = max(max_len, r - l + 1)  # Update max length
 
         return max_len

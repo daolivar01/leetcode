@@ -1,25 +1,31 @@
 class Solution:
     def reverseString(self, s):
         """
-        Reverses a list of characters in-place.
+        Problem Type: Two-Pointer, In-Place Reversal
 
-        Problem Type: Two-pointer, in-place array manipulation
-        Pattern: Symmetric element swapping using dual pointers
+        Approach:
+            Use two pointers —`l` (left) starting at the beginning of the list,
+            and `r` (right) starting at the end. Swap characters at `l` and `r`,
+            then move both pointers inward until they meet or cross.
 
-        Parameters:
-        s (List[str]): A list of characters to be reversed in-place
-
-        Returns:
-        None: The input list is modified directly
+            This is a classic in-place reversal approach with optimal time and space efficiency.
+            It works directly on the input list of characters, modifying it in-place.
 
         Time Complexity: O(n)
-        Space Complexity: O(1)
-        """
+            - Each character is visited once during a single pass.
 
+        Space Complexity: O(1)
+            - Swaps are done in-place with only two pointers used.
+
+        Args:
+            s (List[str]): A list of characters to be reversed in-place.
+
+        Returns:
+            None: The input list `s` is modified in-place.
+        """
         l, r = 0, len(s) - 1
 
-        # Two-pointer approach: move inward from both ends and swap
         while l < r:
-            s[l], s[r] = s[r], s[l]  # symmetric swap
+            s[l], s[r] = s[r], s[l]  # Swap characters at symmetric positions
             l += 1
             r -= 1

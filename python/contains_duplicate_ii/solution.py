@@ -1,31 +1,39 @@
 class Solution:
     def containsNearbyDuplicate(self, nums, k):
         """
-        Checks whether any duplicate exists in 'nums' such that the indices
-        of the duplicates are at most 'k' apart.
+        Problem Type: Sliding Window + Set for Duplicate Detection
 
-        Uses a sliding window of size 'k' implemented via a set to track
-        the most recent 'k' elements seen.
+        Approach:
+            Maintain a sliding window of size at most `k` using a set to track
+            recent elements within the window.
+
+            Iterate through the list, adding elements to the window.
+            If a duplicate is detected within the window, return True immediately.
+            When the window size exceeds `k`, remove the oldest element to keep the window size fixed.
+
+        Time Complexity: O(n)
+            - Each element is added and removed from the set at most once.
+
+        Space Complexity: O(min(n, k))
+            - The size of the sliding window set is bounded by k or n.
 
         Args:
-            nums: List of integers to check.
-            k: Maximum allowed index difference between duplicates.
+            nums (List[int]): Input list of integers.
+            k (int): Maximum allowed index distance between duplicates.
 
         Returns:
-            True if a duplicate exists within a distance of k, False otherwise.
+            bool: True if any duplicate exists within `k` indices, False otherwise.
         """
-        window = set()
+        window = set()  # Tracks elements in current sliding window
 
-        for i in range(len(nums)):
-            if nums[i] in window:
-                # Found a duplicate within the current window
-                return True
+        for i, num in enumerate(nums):
+            if num in window:
+                return True  # Duplicate found within window
 
-            window.add(nums[i])
+            window.add(num)
 
-            # Ensure the window only holds at most 'k' recent elements
+            # Keep window size at most k by removing oldest element
             if i >= k:
                 window.remove(nums[i - k])
 
-        # No nearby duplicates found
-        return False
+        return False  # No duplicates found within distance k
