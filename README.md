@@ -19,6 +19,7 @@ This repository contains solutions to various LeetCode problems aimed at prepari
 |                   [643.](https://leetcode.com/problems/maximum-average-subarray-i/description/) |           Maximum Average Subarray I           | 🟢 Easy    |        [Python](https://github.com/daolivar01/leetcode/blob/main/python/maximum_average_subarray_i/solution.py)         |
 |                          [680.](https://leetcode.com/problems/valid-palindrome-ii/description/) |              Valid Palindrome II               | 🟢 Easy    |            [Python](https://github.com/daolivar01/leetcode/blob/main/python/valid_palindrome_ii/solution.py)            |
 |                           [904.](https://leetcode.com/problems/fruit-into-baskets/description/) |               Fruit Into Baskets               | 🟠 Medium  |            [Python](https://github.com/daolivar01/leetcode/blob/main/python/fruit_into_baskets/solution.py)             |
+|                     [1480.](https://leetcode.com/problems/running-sum-of-1d-array/description/) |            Running Sum of 1d Array             | 🟢 Easy    |          [Python](https://github.com/daolivar01/leetcode/blob/main/python/running_sum_of_1d_array/solution.py)          |
 
 <!-- Row Template -->
 <!-- |   # | Problem | <🟢 Easy / 🟠 Medium / 🔴 Hard> | [Python](https://github.com/daolivar01/leetcode/blob/main/) | -->
